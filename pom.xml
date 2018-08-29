@@ -20,6 +20,7 @@
         <module>renren-admin</module>
         <module>renren-api</module>
         <module>renren-generator</module>
+        <module>client</module>
     </modules>
 
     <properties>
