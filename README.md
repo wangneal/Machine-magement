@@ -1,7 +1,7 @@
 **项目说明** 
 - 采用SpringBoot、MyBatis、Shiro框架，开发的一套权限系统，极低门槛，拿来即用。设计之初，就非常注重安全性，为企业系统保驾护航，让一切都变得如此简单。
 - 提供了代码生成器，只需编写30%左右代码，其余的代码交给系统自动生成，可快速完成开发任务
-- 支持MySQL、Oracle、SQL Server、PostgreSQL等主流数据库
+- 后台系统支持MySQL、Oracle、SQL Server、PostgreSQL等主流数据库，客户端系统仅支持MySQL
 <br>
 
 **具有如下特点** 
@@ -46,7 +46,7 @@ renren-security
 │        └─application.yml   全局配置文件
 │       
 │ 
-├─renren-api        API服务
+├─renren-api        API服务，此部分用于二次开发
 │ 
 ├─renren-generator  代码生成器
 │        └─resources 
@@ -55,6 +55,8 @@ renren-security
 │           ├─application.yml    全局配置文件
 │           └─generator.properties   代码生成器，配置文件
 │
+├─client         客户端模块，业务前端部分
+
 ```
 
 <br>
@@ -82,14 +84,19 @@ renren-security
 - 通过git下载源码
 - 创建数据库renren_security，数据库编码为UTF-8
 - 执行db/mysql.sql文件，初始化数据【按需导入表结构及数据】
-- 修改application-dev.yml文件，更新MySQL账号和密码
+- 导入仓库、仓位、设备数据，请按照表结构导入。
+- 修改renren-admin模块application-dev.yml文件，更新MySQL账号和密码
+- 修改client客户端模块的application.yml文件，更新MySQL账号和密码
+- 修改 client/src/test/com.bcfou.business/QRCodeCreate 文件相关参数为自己的，执行生成二维码。数据较多时会出现卡顿等现象，请分段生成。
 - 在renren-security目录下，执行mvn clean install
 <br>
 
 - Eclipse、IDEA运行AdminApplication.java，则可启动项目【renren-admin】
 - renren-admin访问路径：http://localhost:8080/renren-admin
 - swagger文档路径：http://localhost:8080/renren-admin/swagger/index.html
-- 账号密码：admin/admin
+- client 访问路径：http://localhost:8088
+- 账号密码：admin/admin   通用
+- 用户扫描二维码就可以进入借还界面进行操作。管理员在后台可以查看所有未删除的订单信息及状态。
 
 <br>
 
@@ -104,31 +111,22 @@ renren-security
 
 <br>
 
+
+**生产环境部署**
+
+ - 在本地运行测试OK后就可以开始进行生产环境部署了。
+ - 修改application-prod.yml数据库、redis、druid等参数
+ - 修改application.yml 服务器端口、路径、配置文件激活等参数
+ - 部署教程参考：https://www.cnblogs.com/gscq073240/articles/6842603.html
+
+<br>
+
  **分布式部署**
 - 分布式部署，需要安装redis，并配置config.properties里的redis信息
 - 需要配置【renren.redis.open=true】，表示开启redis缓存
 - 需要配置【renren.shiro.redis=true】，表示把shiro session存到redis里
+- 备注：此部分用于高并发业务场景，在访问量不大时可以忽略。
 
-<br>
-
- **项目演示**
-- 演示地址：http://demo.open.renren.io/renren-security
-- 账号密码：admin/admin
-
-<br>
-
-**如何交流、反馈、参与贡献？** 
-- 开发文档：http://www.renren.io/guide/security
-- 官方社区：http://www.renren.io/community
-- gitee仓库：https://gitee.com/renrenio/renren-security
-- github仓库：https://github.com/renrenio/renren-security
-- [人人开源](http://www.renren.io)：http://www.renren.io   
-- 官方QQ群：324780204、145799952
-- 如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持
-- 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
-- 微信扫码并关注【人人开源】，获得项目最新动态及更新提醒<br>
-![输入图片说明](http://cdn.renren.io/47c26201804031918312618.jpg "在这里输入图片标题")
-<br>
 <br>
 
 **接口文档效果图：** 
@@ -153,4 +151,19 @@ renren-security
 
 <br>
 
-![捐赠](http://cdn.renren.io/donate.jpg "捐赠") 
+**客户端效果图：**
+
+
+![1](./images/1535425502931.png)
+![2](./images/1535429721981.png)
+![3](./images/1535429546612.png)
+![4](./images/1535428325184.png)
+
+<br>
+
+**移动端界面效果**
+
+
+![11](./images/1535428369057.png)
+![22](./images/1535429503147.png)
+![33](./images/1535429742478.png)
