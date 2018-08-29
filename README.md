@@ -154,16 +154,11 @@ renren-security
 **客户端效果图：**
 
 
-![1](./images/1535425502931.png)
-![2](./images/1535429721981.png)
-![3](./images/1535429546612.png)
-![4](./images/1535428325184.png)
+![1](https://github.com/wangneal/mchinemagement/blob/master/imgs/JIEHUAN.png)
+![2](https://github.com/wangneal/mchinemagement/blob/master/imgs/HUAN.png)
+![3](https://github.com/wangneal/mchinemagement/blob/master/imgs/3.png)
+![4](https://github.com/wangneal/mchinemagement/blob/master/imgs/2.png)
+![5](https://github.com/wangneal/mchinemagement/blob/master/imgs/1.png)
 
 <br>
 
-**移动端界面效果**
-
-
-![11](./images/1535428369057.png)
-![22](./images/1535429503147.png)
-![33](./images/1535429742478.png)
