@@ -133,7 +133,7 @@ public class OrderController {
      */
     @PostMapping("/restore")
     @Transactional
-    public String restore(Model model, @RequestParam("orderId") int id){
+    public String restore(Model model, @RequestParam("orderId") int id, @RequestParam("machinesStatus") int status){
         Order order = orderRepository.getOne((long) id);
         if (order != null){
             //查询用户
@@ -145,11 +145,19 @@ public class OrderController {
             if (!user.equals(whoAmI)){
                 order.setUId(whoAmI.getUserId());
             }
+            //处理设备状态
+            Machine machine = machineRepository.getOne(order.getMachineId());
+            machine.setMachinesStatus(status);
+            //保存数据到数据库
             orderRepository.save(order);
+            machineRepository.save(machine);
+
             model.addAttribute("msg", "归还成功");
+
             return "restore";
         }else {
             model.addAttribute("msg", "参数有误");
+
             return "error";
         }
     }

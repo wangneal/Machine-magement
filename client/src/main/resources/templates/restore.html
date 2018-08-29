@@ -45,6 +45,18 @@
                 </label>
             </div>
         </div>
+            <div class="form-group">
+                <div class="col-lg-5 control-label">设备分类</div>
+                <div class="col-lg-6 col-md-6">
+                    <label>
+                        <select  class="form-control"  th:name="machinesStatus">
+                            <option value="0" class="active">正常</option>
+                            <option value="1">待维修</option>
+                            <option value="2">已报废</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
         <div class="form-group">
             <div class="col-lg-5 control-label">借用人</div>
             <div class="col-lg-6 col-md-6">
