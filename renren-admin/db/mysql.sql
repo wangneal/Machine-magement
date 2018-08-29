@@ -1,380 +1,602 @@
--- ËèúÂçï
-CREATE TABLE `sys_menu` (
-  `menu_id` bigint NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint COMMENT 'Áà∂ËèúÂçïIDÔºå‰∏ÄÁ∫ßËèúÂçï‰∏∫0',
-  `name` varchar(50) COMMENT 'ËèúÂçïÂêçÁß∞',
-  `url` varchar(200) COMMENT 'ËèúÂçïURL',
-  `perms` varchar(500) COMMENT 'ÊéàÊùÉ(Â§ö‰∏™Áî®ÈÄóÂè∑ÂàÜÈöîÔºåÂ¶ÇÔºöuser:list,user:create)',
-  `type` int COMMENT 'Á±ªÂûã   0ÔºöÁõÆÂΩï   1ÔºöËèúÂçï   2ÔºöÊåâÈíÆ',
-  `icon` varchar(50) COMMENT 'ËèúÂçïÂõæÊ†á',
-  `order_num` int COMMENT 'ÊéíÂ∫è',
-  PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ËèúÂçïÁÆ°ÁêÜ';
+# Host: LOCALHOST  (Version: 5.5.15)
+# Date: 2018-08-29 14:22:24
+# Generator: MySQL-Front 5.3  (Build 4.269)
 
--- ÈÉ®Èó®
-CREATE TABLE `sys_dept` (
-  `dept_id` bigint NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint COMMENT '‰∏äÁ∫ßÈÉ®Èó®IDÔºå‰∏ÄÁ∫ßÈÉ®Èó®‰∏∫0',
-  `name` varchar(50) COMMENT 'ÈÉ®Èó®ÂêçÁß∞',
-  `order_num` int COMMENT 'ÊéíÂ∫è',
-  `del_flag` tinyint DEFAULT 0 COMMENT 'ÊòØÂê¶Âà†Èô§  -1ÔºöÂ∑≤Âà†Èô§  0ÔºöÊ≠£Â∏∏',
-  PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ÈÉ®Èó®ÁÆ°ÁêÜ';
+/*!40101 SET NAMES gb2312 */;
 
--- Á≥ªÁªüÁî®Êà∑
-CREATE TABLE `sys_user` (
-  `user_id` bigint NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL COMMENT 'Áî®Êà∑Âêç',
-  `password` varchar(100) COMMENT 'ÂØÜÁ†Å',
-  `salt` varchar(20) COMMENT 'Áõê',
-  `email` varchar(100) COMMENT 'ÈÇÆÁÆ±',
-  `mobile` varchar(100) COMMENT 'ÊâãÊú∫Âè∑',
-  `status` tinyint COMMENT 'Áä∂ÊÄÅ  0ÔºöÁ¶ÅÁî®   1ÔºöÊ≠£Â∏∏',
-  `dept_id` bigint(20) COMMENT 'ÈÉ®Èó®ID',
-  `create_time` datetime COMMENT 'ÂàõÂª∫Êó∂Èó¥',
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Á≥ªÁªüÁî®Êà∑';
+#
+# Structure for table "qrtz_calendars"
+#
 
--- ËßíËâ≤
-CREATE TABLE `sys_role` (
-  `role_id` bigint NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(100) COMMENT 'ËßíËâ≤ÂêçÁß∞',
-  `remark` varchar(100) COMMENT 'Â§áÊ≥®',
-  `dept_id` bigint(20) COMMENT 'ÈÉ®Èó®ID',
-  `create_time` datetime COMMENT 'ÂàõÂª∫Êó∂Èó¥',
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ËßíËâ≤';
+DROP TABLE IF EXISTS `qrtz_calendars`;
+CREATE TABLE `qrtz_calendars` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `CALENDAR_NAME` varchar(200) NOT NULL,
+  `CALENDAR` blob NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Áî®Êà∑‰∏éËßíËâ≤ÂØπÂ∫îÂÖ≥Á≥ª
-CREATE TABLE `sys_user_role` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint COMMENT 'Áî®Êà∑ID',
-  `role_id` bigint COMMENT 'ËßíËâ≤ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Áî®Êà∑‰∏éËßíËâ≤ÂØπÂ∫îÂÖ≥Á≥ª';
-
--- ËßíËâ≤‰∏éËèúÂçïÂØπÂ∫îÂÖ≥Á≥ª
-CREATE TABLE `sys_role_menu` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `role_id` bigint COMMENT 'ËßíËâ≤ID',
-  `menu_id` bigint COMMENT 'ËèúÂçïID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ËßíËâ≤‰∏éËèúÂçïÂØπÂ∫îÂÖ≥Á≥ª';
-
--- ËßíËâ≤‰∏éÈÉ®Èó®ÂØπÂ∫îÂÖ≥Á≥ª
-CREATE TABLE `sys_role_dept` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `role_id` bigint COMMENT 'ËßíËâ≤ID',
-  `dept_id` bigint COMMENT 'ÈÉ®Èó®ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ËßíËâ≤‰∏éÈÉ®Èó®ÂØπÂ∫îÂÖ≥Á≥ª';
+#
+# Data for table "qrtz_calendars"
+#
 
 
--- Á≥ªÁªüÈÖçÁΩÆ‰ø°ÊÅØ
-CREATE TABLE `sys_config` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `param_key` varchar(50) COMMENT 'key',
-  `param_value` varchar(2000) COMMENT 'value',
-  `status` tinyint DEFAULT 1 COMMENT 'Áä∂ÊÄÅ   0ÔºöÈöêËóè   1ÔºöÊòæÁ§∫',
-  `remark` varchar(500) COMMENT 'Â§áÊ≥®',
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX (`param_key`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='Á≥ªÁªüÈÖçÁΩÆ‰ø°ÊÅØË°®';
+#
+# Structure for table "qrtz_fired_triggers"
+#
 
--- Êï∞ÊçÆÂ≠óÂÖ∏
-CREATE TABLE `sys_dict` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL COMMENT 'Â≠óÂÖ∏ÂêçÁß∞',
-  `type` varchar(100) NOT NULL COMMENT 'Â≠óÂÖ∏Á±ªÂûã',
-  `code` varchar(100) NOT NULL COMMENT 'Â≠óÂÖ∏Á†Å',
-  `value` varchar(1000) NOT NULL COMMENT 'Â≠óÂÖ∏ÂÄº',
-  `order_num` int DEFAULT 0 COMMENT 'ÊéíÂ∫è',
-  `remark` varchar(255) COMMENT 'Â§áÊ≥®',
-  `del_flag` tinyint DEFAULT 0 COMMENT 'Âà†Èô§Ê†áËÆ∞  -1ÔºöÂ∑≤Âà†Èô§  0ÔºöÊ≠£Â∏∏',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY(`type`,`code`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COMMENT='Êï∞ÊçÆÂ≠óÂÖ∏Ë°®';
+DROP TABLE IF EXISTS `qrtz_fired_triggers`;
+CREATE TABLE `qrtz_fired_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `ENTRY_ID` varchar(95) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `INSTANCE_NAME` varchar(200) NOT NULL,
+  `FIRED_TIME` bigint(13) NOT NULL,
+  `SCHED_TIME` bigint(13) NOT NULL,
+  `PRIORITY` int(11) NOT NULL,
+  `STATE` varchar(16) NOT NULL,
+  `JOB_NAME` varchar(200) DEFAULT NULL,
+  `JOB_GROUP` varchar(200) DEFAULT NULL,
+  `IS_NONCONCURRENT` varchar(1) DEFAULT NULL,
+  `REQUESTS_RECOVERY` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`ENTRY_ID`),
+  KEY `IDX_QRTZ_FT_TRIG_INST_NAME` (`SCHED_NAME`,`INSTANCE_NAME`),
+  KEY `IDX_QRTZ_FT_INST_JOB_REQ_RCVRY` (`SCHED_NAME`,`INSTANCE_NAME`,`REQUESTS_RECOVERY`),
+  KEY `IDX_QRTZ_FT_J_G` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),
+  KEY `IDX_QRTZ_FT_JG` (`SCHED_NAME`,`JOB_GROUP`),
+  KEY `IDX_QRTZ_FT_T_G` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `IDX_QRTZ_FT_TG` (`SCHED_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Á≥ªÁªüÊó•Âøó
-CREATE TABLE `sys_log` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COMMENT 'Áî®Êà∑Âêç',
-  `operation` varchar(50) COMMENT 'Áî®Êà∑Êìç‰Ωú',
-  `method` varchar(200) COMMENT 'ËØ∑Ê±ÇÊñπÊ≥ï',
-  `params` varchar(5000) COMMENT 'ËØ∑Ê±ÇÂèÇÊï∞',
-  `time` bigint NOT NULL COMMENT 'ÊâßË°åÊó∂Èïø(ÊØ´Áßí)',
-  `ip` varchar(64) COMMENT 'IPÂú∞ÂùÄ',
-  `create_date` datetime COMMENT 'ÂàõÂª∫Êó∂Èó¥',
-  PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='Á≥ªÁªüÊó•Âøó';
-
--- ÂàùÂßãÊï∞ÊçÆ
-INSERT INTO `sys_user` (`user_id`, `username`, `password`, `salt`, `email`, `mobile`, `status`, `dept_id`, `create_time`) VALUES ('1', 'admin', 'e1153123d7d180ceeb820d577ff119876678732a68eef4e6ffc0b1f06a01f91b', 'YzcmCZNvbXocrsz9dm8e', 'root@renren.io', '13612345678', '1', '1', '2016-11-11 11:11:11');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('1', '0', 'Á≥ªÁªüÁÆ°ÁêÜ', NULL, NULL, '0', 'fa fa-cog', '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('2', '1', 'ÁÆ°ÁêÜÂëòÁÆ°ÁêÜ', 'modules/sys/user.html', NULL, '1', 'fa fa-user', '1');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('3', '1', 'ËßíËâ≤ÁÆ°ÁêÜ', 'modules/sys/role.html', NULL, '1', 'fa fa-user-secret', '2');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('4', '1', 'ËèúÂçïÁÆ°ÁêÜ', 'modules/sys/menu.html', NULL, '1', 'fa fa-th-list', '3');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('5', '1', 'SQLÁõëÊéß', 'druid/sql.html', NULL, '1', 'fa fa-bug', '4');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('15', '2', 'Êü•Áúã', NULL, 'sys:user:list,sys:user:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('16', '2', 'Êñ∞Â¢û', NULL, 'sys:user:save,sys:role:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('17', '2', '‰øÆÊîπ', NULL, 'sys:user:update,sys:role:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('18', '2', 'Âà†Èô§', NULL, 'sys:user:delete', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('19', '3', 'Êü•Áúã', NULL, 'sys:role:list,sys:role:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('20', '3', 'Êñ∞Â¢û', NULL, 'sys:role:save,sys:menu:perms', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('21', '3', '‰øÆÊîπ', NULL, 'sys:role:update,sys:menu:perms', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('22', '3', 'Âà†Èô§', NULL, 'sys:role:delete', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('23', '4', 'Êü•Áúã', NULL, 'sys:menu:list,sys:menu:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('24', '4', 'Êñ∞Â¢û', NULL, 'sys:menu:save,sys:menu:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('25', '4', '‰øÆÊîπ', NULL, 'sys:menu:update,sys:menu:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('26', '4', 'Âà†Èô§', NULL, 'sys:menu:delete', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('27', '1', 'ÂèÇÊï∞ÁÆ°ÁêÜ', 'modules/sys/config.html', 'sys:config:list,sys:config:info,sys:config:save,sys:config:update,sys:config:delete', '1', 'fa fa-sun-o', '6');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('29', '1', 'Á≥ªÁªüÊó•Âøó', 'modules/sys/log.html', 'sys:log:list', '1', 'fa fa-file-text-o', '7');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('31', '1', 'ÈÉ®Èó®ÁÆ°ÁêÜ', 'modules/sys/dept.html', NULL, '1', 'fa fa-file-code-o', '1');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('32', '31', 'Êü•Áúã', NULL, 'sys:dept:list,sys:dept:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('33', '31', 'Êñ∞Â¢û', NULL, 'sys:dept:save,sys:dept:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('34', '31', '‰øÆÊîπ', NULL, 'sys:dept:update,sys:dept:select', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('35', '31', 'Âà†Èô§', NULL, 'sys:dept:delete', '2', NULL, '0');
-
-INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (36, 1, 'Â≠óÂÖ∏ÁÆ°ÁêÜ', 'modules/sys/dict.html', NULL, 1, 'fa fa-bookmark-o', 6);
-INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (37, 36, 'Êü•Áúã', NULL, 'sys:dict:list,sys:dict:info', 2, NULL, 6);
-INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (38, 36, 'Êñ∞Â¢û', NULL, 'sys:dict:save', 2, NULL, 6);
-INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (39, 36, '‰øÆÊîπ', NULL, 'sys:dict:update', 2, NULL, 6);
-INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (40, 36, 'Âà†Èô§', NULL, 'sys:dict:delete', 2, NULL, 6);
+#
+# Data for table "qrtz_fired_triggers"
+#
 
 
-INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `name`, `order_num`, `del_flag`) VALUES ('1', '0', '‰∫∫‰∫∫ÂºÄÊ∫êÈõÜÂõ¢', '0', '0');
-INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `name`, `order_num`, `del_flag`) VALUES ('2', '1', 'ÈïøÊ≤ôÂàÜÂÖ¨Âè∏', '1', '0');
-INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `name`, `order_num`, `del_flag`) VALUES ('3', '1', '‰∏äÊµ∑ÂàÜÂÖ¨Âè∏', '2', '0');
-INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `name`, `order_num`, `del_flag`) VALUES ('4', '3', 'ÊäÄÊúØÈÉ®', '0', '0');
-INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `name`, `order_num`, `del_flag`) VALUES ('5', '3', 'ÈîÄÂîÆÈÉ®', '1', '0');
+#
+# Structure for table "qrtz_job_details"
+#
 
-INSERT INTO `sys_dict`(`id`, `name`, `type`, `code`, `value`, `order_num`, `remark`, `del_flag`) VALUES (1, 'ÊÄßÂà´', 'sex', '0', 'Â•≥', 0, NULL, 0);
-INSERT INTO `sys_dict`(`id`, `name`, `type`, `code`, `value`, `order_num`, `remark`, `del_flag`) VALUES (2, 'ÊÄßÂà´', 'sex', '1', 'Áî∑', 1, NULL, 0);
-INSERT INTO `sys_dict`(`id`, `name`, `type`, `code`, `value`, `order_num`, `remark`, `del_flag`) VALUES (3, 'ÊÄßÂà´', 'sex', '2', 'Êú™Áü•', 3, NULL, 0);
+DROP TABLE IF EXISTS `qrtz_job_details`;
+CREATE TABLE `qrtz_job_details` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `JOB_NAME` varchar(200) NOT NULL,
+  `JOB_GROUP` varchar(200) NOT NULL,
+  `DESCRIPTION` varchar(250) DEFAULT NULL,
+  `JOB_CLASS_NAME` varchar(250) NOT NULL,
+  `IS_DURABLE` varchar(1) NOT NULL,
+  `IS_NONCONCURRENT` varchar(1) NOT NULL,
+  `IS_UPDATE_DATA` varchar(1) NOT NULL,
+  `REQUESTS_RECOVERY` varchar(1) NOT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),
+  KEY `IDX_QRTZ_J_REQ_RECOVERY` (`SCHED_NAME`,`REQUESTS_RECOVERY`),
+  KEY `IDX_QRTZ_J_GRP` (`SCHED_NAME`,`JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_job_details"
+#
+
+INSERT INTO `qrtz_job_details` VALUES ('RenrenScheduler','TASK_1','DEFAULT',NULL,'io.renren.modules.job.utils.ScheduleJob','0','0','0','0',X'ACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000158BAF593307874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B020000787000000000000000017400047465737474000672656E72656E74000FE69C89E58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000007800'),('RenrenScheduler','TASK_2','DEFAULT',NULL,'io.renren.modules.job.utils.ScheduleJob','0','0','0','0',X'ACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000158C377C4607874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000000000000000274000574657374327074000FE697A0E58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000017800');
+
+#
+# Structure for table "qrtz_locks"
+#
+
+DROP TABLE IF EXISTS `qrtz_locks`;
+CREATE TABLE `qrtz_locks` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `LOCK_NAME` varchar(40) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_locks"
+#
+
+INSERT INTO `qrtz_locks` VALUES ('RenrenScheduler','STATE_ACCESS'),('RenrenScheduler','TRIGGER_ACCESS');
+
+#
+# Structure for table "qrtz_paused_trigger_grps"
+#
+
+DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
+CREATE TABLE `qrtz_paused_trigger_grps` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_paused_trigger_grps"
+#
 
 
+#
+# Structure for table "qrtz_scheduler_state"
+#
 
--- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- ‰∫ëÂ≠òÂÇ®ÊúçÂä°Áõ∏ÂÖ≥SQLÔºåÂ¶ÇÊûú‰∏ç‰ΩøÁî®ËØ•ÂäüËÉΩÔºåÂàô‰∏çÁî®ÊâßË°å‰∏ãÈù¢SQL -------------------------------------------------------------------------------------------------------------
--- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `qrtz_scheduler_state`;
+CREATE TABLE `qrtz_scheduler_state` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `INSTANCE_NAME` varchar(200) NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(13) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Êñá‰ª∂‰∏ä‰º†
-CREATE TABLE `sys_oss` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `url` varchar(200) COMMENT 'URLÂú∞ÂùÄ',
-  `create_date` datetime COMMENT 'ÂàõÂª∫Êó∂Èó¥',
-  PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='Êñá‰ª∂‰∏ä‰º†';
+#
+# Data for table "qrtz_scheduler_state"
+#
 
-INSERT INTO `sys_config` (`param_key`, `param_value`, `status`, `remark`) VALUES ('CLOUD_STORAGE_CONFIG_KEY', '{\"aliyunAccessKeyId\":\"\",\"aliyunAccessKeySecret\":\"\",\"aliyunBucketName\":\"\",\"aliyunDomain\":\"\",\"aliyunEndPoint\":\"\",\"aliyunPrefix\":\"\",\"qcloudBucketName\":\"\",\"qcloudDomain\":\"\",\"qcloudPrefix\":\"\",\"qcloudSecretId\":\"\",\"qcloudSecretKey\":\"\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuBucketName\":\"ios-app\",\"qiniuDomain\":\"http://7xqbwh.dl1.z0.glb.clouddn.com\",\"qiniuPrefix\":\"upload\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"type\":1}', '0', '‰∫ëÂ≠òÂÇ®ÈÖçÁΩÆ‰ø°ÊÅØ');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('30', '1', 'Êñá‰ª∂‰∏ä‰º†', 'modules/oss/oss.html', 'sys:oss:all', '1', 'fa fa-file-image-o', '6');
+INSERT INTO `qrtz_scheduler_state` VALUES ('RenrenScheduler','USER-20171228IO1535520520056',1535521638353,15000);
+
+#
+# Structure for table "qrtz_triggers"
+#
+
+DROP TABLE IF EXISTS `qrtz_triggers`;
+CREATE TABLE `qrtz_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `JOB_NAME` varchar(200) NOT NULL,
+  `JOB_GROUP` varchar(200) NOT NULL,
+  `DESCRIPTION` varchar(250) DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PRIORITY` int(11) DEFAULT NULL,
+  `TRIGGER_STATE` varchar(16) NOT NULL,
+  `TRIGGER_TYPE` varchar(8) NOT NULL,
+  `START_TIME` bigint(13) NOT NULL,
+  `END_TIME` bigint(13) DEFAULT NULL,
+  `CALENDAR_NAME` varchar(200) DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(2) DEFAULT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `IDX_QRTZ_T_J` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),
+  KEY `IDX_QRTZ_T_JG` (`SCHED_NAME`,`JOB_GROUP`),
+  KEY `IDX_QRTZ_T_C` (`SCHED_NAME`,`CALENDAR_NAME`),
+  KEY `IDX_QRTZ_T_G` (`SCHED_NAME`,`TRIGGER_GROUP`),
+  KEY `IDX_QRTZ_T_STATE` (`SCHED_NAME`,`TRIGGER_STATE`),
+  KEY `IDX_QRTZ_T_N_STATE` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),
+  KEY `IDX_QRTZ_T_N_G_STATE` (`SCHED_NAME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),
+  KEY `IDX_QRTZ_T_NEXT_FIRE_TIME` (`SCHED_NAME`,`NEXT_FIRE_TIME`),
+  KEY `IDX_QRTZ_T_NFT_ST` (`SCHED_NAME`,`TRIGGER_STATE`,`NEXT_FIRE_TIME`),
+  KEY `IDX_QRTZ_T_NFT_MISFIRE` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`),
+  KEY `IDX_QRTZ_T_NFT_ST_MISFIRE` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`,`TRIGGER_STATE`),
+  KEY `IDX_QRTZ_T_NFT_ST_MISFIRE_GRP` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),
+  CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_triggers"
+#
+
+INSERT INTO `qrtz_triggers` VALUES ('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1535522400000,1535520600000,5,'WAITING','CRON',1535198387000,0,NULL,2,X'ACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000158BAF593307874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B020000787000000000000000017400047465737474000672656E72656E74000FE69C89E58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000007800'),('RenrenScheduler','TASK_2','DEFAULT','TASK_2','DEFAULT',NULL,1535198400000,-1,5,'PAUSED','CRON',1535198387000,0,NULL,2,X'ACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372002E696F2E72656E72656E2E6D6F64756C65732E6A6F622E656E746974792E5363686564756C654A6F62456E7469747900000000000000010200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C00067374617475737400134C6A6176612F6C616E672F496E74656765723B7870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000158C377C4607874000E3020302F3330202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000000000000000274000574657374327074000FE697A0E58F82E695B0E6B58BE8AF95737200116A6176612E6C616E672E496E746567657212E2A0A4F781873802000149000576616C75657871007E0013000000017800');
+
+#
+# Structure for table "qrtz_simprop_triggers"
+#
+
+DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
+CREATE TABLE `qrtz_simprop_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `STR_PROP_1` varchar(512) DEFAULT NULL,
+  `STR_PROP_2` varchar(512) DEFAULT NULL,
+  `STR_PROP_3` varchar(512) DEFAULT NULL,
+  `INT_PROP_1` int(11) DEFAULT NULL,
+  `INT_PROP_2` int(11) DEFAULT NULL,
+  `LONG_PROP_1` bigint(20) DEFAULT NULL,
+  `LONG_PROP_2` bigint(20) DEFAULT NULL,
+  `DEC_PROP_1` decimal(13,4) DEFAULT NULL,
+  `DEC_PROP_2` decimal(13,4) DEFAULT NULL,
+  `BOOL_PROP_1` varchar(1) DEFAULT NULL,
+  `BOOL_PROP_2` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_simprop_triggers"
+#
 
 
--- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- ÂÆöÊó∂‰ªªÂä°Áõ∏ÂÖ≥Ë°®ÁªìÊûÑÔºåÂ¶ÇÊûú‰∏ç‰ΩøÁî®jobÊ®°ÂùóÔºåÂàô‰∏çÁî®ÊâßË°å‰∏ãÈù¢SQL -------------------------------------------------------------------------------------------------------------
--- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+# Structure for table "qrtz_simple_triggers"
+#
 
--- ÂàùÂßãÂåñËèúÂçïÊï∞ÊçÆ
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('6', '1', 'ÂÆöÊó∂‰ªªÂä°', 'modules/job/schedule.html', NULL, '1', 'fa fa-tasks', '5');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('7', '6', 'Êü•Áúã', NULL, 'sys:schedule:list,sys:schedule:info', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('8', '6', 'Êñ∞Â¢û', NULL, 'sys:schedule:save', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('9', '6', '‰øÆÊîπ', NULL, 'sys:schedule:update', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('10', '6', 'Âà†Èô§', NULL, 'sys:schedule:delete', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('11', '6', 'ÊöÇÂÅú', NULL, 'sys:schedule:pause', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('12', '6', 'ÊÅ¢Â§ç', NULL, 'sys:schedule:resume', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('13', '6', 'Á´ãÂç≥ÊâßË°å', NULL, 'sys:schedule:run', '2', NULL, '0');
-INSERT INTO `sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES ('14', '6', 'Êó•ÂøóÂàóË°®', NULL, 'sys:schedule:log', '2', NULL, '0');
+DROP TABLE IF EXISTS `qrtz_simple_triggers`;
+CREATE TABLE `qrtz_simple_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `REPEAT_COUNT` bigint(7) NOT NULL,
+  `REPEAT_INTERVAL` bigint(12) NOT NULL,
+  `TIMES_TRIGGERED` bigint(10) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ÂÆöÊó∂‰ªªÂä°
+#
+# Data for table "qrtz_simple_triggers"
+#
+
+
+#
+# Structure for table "qrtz_cron_triggers"
+#
+
+DROP TABLE IF EXISTS `qrtz_cron_triggers`;
+CREATE TABLE `qrtz_cron_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `CRON_EXPRESSION` varchar(120) NOT NULL,
+  `TIME_ZONE_ID` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_cron_triggers"
+#
+
+INSERT INTO `qrtz_cron_triggers` VALUES ('RenrenScheduler','TASK_1','DEFAULT','0 0/30 * * * ?','Asia/Shanghai'),('RenrenScheduler','TASK_2','DEFAULT','0 0/30 * * * ?','Asia/Shanghai');
+
+#
+# Structure for table "qrtz_blob_triggers"
+#
+
+DROP TABLE IF EXISTS `qrtz_blob_triggers`;
+CREATE TABLE `qrtz_blob_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `BLOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `SCHED_NAME` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "qrtz_blob_triggers"
+#
+
+
+#
+# Structure for table "schedule_job"
+#
+
+DROP TABLE IF EXISTS `schedule_job`;
 CREATE TABLE `schedule_job` (
-  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '‰ªªÂä°id',
-  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring beanÂêçÁß∞',
-  `method_name` varchar(100) DEFAULT NULL COMMENT 'ÊñπÊ≥ïÂêç',
-  `params` varchar(2000) DEFAULT NULL COMMENT 'ÂèÇÊï∞',
-  `cron_expression` varchar(100) DEFAULT NULL COMMENT 'cronË°®ËææÂºè',
-  `status` tinyint(4) DEFAULT NULL COMMENT '‰ªªÂä°Áä∂ÊÄÅ  0ÔºöÊ≠£Â∏∏  1ÔºöÊöÇÂÅú',
-  `remark` varchar(255) DEFAULT NULL COMMENT 'Â§áÊ≥®',
-  `create_time` datetime DEFAULT NULL COMMENT 'ÂàõÂª∫Êó∂Èó¥',
+  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '»ŒŒÒid',
+  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean√˚≥∆',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '∑Ω∑®√˚',
+  `params` varchar(2000) DEFAULT NULL COMMENT '≤Œ ˝',
+  `cron_expression` varchar(100) DEFAULT NULL COMMENT 'cron±Ì¥Ô Ω',
+  `status` tinyint(4) DEFAULT NULL COMMENT '»ŒŒÒ◊¥Ã¨  0£∫’˝≥£  1£∫‘›Õ£',
+  `remark` varchar(255) DEFAULT NULL COMMENT '±∏◊¢',
+  `create_time` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
   PRIMARY KEY (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ÂÆöÊó∂‰ªªÂä°';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='∂® ±»ŒŒÒ';
 
--- ÂÆöÊó∂‰ªªÂä°Êó•Âøó
+#
+# Data for table "schedule_job"
+#
+
+INSERT INTO `schedule_job` VALUES (1,'testTask','test','renren','0 0/30 * * * ?',0,'”–≤Œ ˝≤‚ ‘','2016-12-01 23:16:46'),(2,'testTask','test2',NULL,'0 0/30 * * * ?',1,'Œﬁ≤Œ ˝≤‚ ‘','2016-12-03 14:55:56');
+
+#
+# Structure for table "schedule_job_log"
+#
+
+DROP TABLE IF EXISTS `schedule_job_log`;
 CREATE TABLE `schedule_job_log` (
-  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '‰ªªÂä°Êó•Âøóid',
-  `job_id` bigint(20) NOT NULL COMMENT '‰ªªÂä°id',
-  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring beanÂêçÁß∞',
-  `method_name` varchar(100) DEFAULT NULL COMMENT 'ÊñπÊ≥ïÂêç',
-  `params` varchar(2000) DEFAULT NULL COMMENT 'ÂèÇÊï∞',
-  `status` tinyint(4) NOT NULL COMMENT '‰ªªÂä°Áä∂ÊÄÅ    0ÔºöÊàêÂäü    1ÔºöÂ§±Ë¥•',
-  `error` varchar(2000) DEFAULT NULL COMMENT 'Â§±Ë¥•‰ø°ÊÅØ',
-  `times` int(11) NOT NULL COMMENT 'ËÄóÊó∂(Âçï‰ΩçÔºöÊØ´Áßí)',
-  `create_time` datetime DEFAULT NULL COMMENT 'ÂàõÂª∫Êó∂Èó¥',
+  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '»ŒŒÒ»’÷æid',
+  `job_id` bigint(20) NOT NULL COMMENT '»ŒŒÒid',
+  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean√˚≥∆',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '∑Ω∑®√˚',
+  `params` varchar(2000) DEFAULT NULL COMMENT '≤Œ ˝',
+  `status` tinyint(4) NOT NULL COMMENT '»ŒŒÒ◊¥Ã¨    0£∫≥…π¶    1£∫ ß∞‹',
+  `error` varchar(2000) DEFAULT NULL COMMENT ' ß∞‹–≈œ¢',
+  `times` int(11) NOT NULL COMMENT '∫ƒ ±(µ•Œª£∫∫¡√Î)',
+  `create_time` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ÂÆöÊó∂‰ªªÂä°Êó•Âøó';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='∂® ±»ŒŒÒ»’÷æ';
+
+#
+# Data for table "schedule_job_log"
+#
+
+INSERT INTO `schedule_job_log` VALUES (1,1,'testTask','test','renren',0,NULL,1050,'2018-08-25 21:00:00'),(2,1,'testTask','test','renren',0,NULL,1059,'2018-08-25 21:30:00'),(3,1,'testTask','test','renren',0,NULL,1047,'2018-08-25 22:00:00'),(4,1,'testTask','test','renren',0,NULL,1031,'2018-08-25 23:00:00'),(5,1,'testTask','test','renren',0,NULL,1036,'2018-08-27 11:30:00'),(6,1,'testTask','test','renren',0,NULL,1027,'2018-08-27 19:30:00'),(7,1,'testTask','test','renren',0,NULL,1027,'2018-08-27 20:00:00'),(8,1,'testTask','test','renren',0,NULL,1022,'2018-08-27 21:30:00'),(9,1,'testTask','test','renren',0,NULL,1039,'2018-08-27 22:00:00'),(10,1,'testTask','test','renren',0,NULL,1039,'2018-08-27 23:30:00'),(11,1,'testTask','test','renren',0,NULL,1033,'2018-08-28 15:00:00'),(12,1,'testTask','test','renren',0,NULL,1026,'2018-08-28 15:30:00'),(13,1,'testTask','test','renren',0,NULL,1067,'2018-08-28 16:00:00'),(14,1,'testTask','test','renren',0,NULL,1067,'2018-08-28 17:00:00'),(15,1,'testTask','test','renren',0,NULL,1055,'2018-08-28 18:00:00'),(16,1,'testTask','test','renren',0,NULL,1043,'2018-08-28 18:30:00'),(17,1,'testTask','test','renren',0,NULL,1053,'2018-08-28 19:00:00'),(18,1,'testTask','test','renren',0,NULL,1022,'2018-08-28 19:30:00'),(19,1,'testTask','test','renren',0,NULL,1012,'2018-08-28 20:00:00'),(20,1,'testTask','test','renren',0,NULL,1057,'2018-08-28 21:00:00'),(21,1,'testTask','test','renren',0,NULL,1089,'2018-08-28 22:00:00'),(22,1,'testTask','test','renren',0,NULL,1043,'2018-08-28 22:30:00'),(23,1,'testTask','test','renren',0,NULL,1017,'2018-08-28 23:00:00'),(24,1,'testTask','test','renren',0,NULL,1009,'2018-08-28 23:30:03'),(25,1,'testTask','test','renren',0,NULL,1060,'2018-08-29 00:00:00'),(26,1,'testTask','test','renren',0,NULL,1079,'2018-08-29 10:00:00'),(27,1,'testTask','test','renren',0,NULL,1011,'2018-08-29 10:30:00'),(28,1,'testTask','test','renren',0,NULL,1045,'2018-08-29 11:00:00'),(29,1,'testTask','test','renren',0,NULL,1007,'2018-08-29 11:30:00'),(30,1,'testTask','test','renren',0,NULL,1020,'2018-08-29 12:00:00'),(31,1,'testTask','test','renren',0,NULL,1088,'2018-08-29 12:30:00'),(32,1,'testTask','test','renren',0,NULL,1008,'2018-08-29 13:00:00'),(33,1,'testTask','test','renren',0,NULL,1099,'2018-08-29 13:30:00');
+
+#
+# Structure for table "sys_config"
+#
+
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE `sys_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `param_key` varchar(50) DEFAULT NULL COMMENT 'key',
+  `param_value` varchar(2000) DEFAULT NULL COMMENT 'value',
+  `status` tinyint(4) DEFAULT '1' COMMENT '◊¥Ã¨   0£∫“˛≤ÿ   1£∫œ‘ æ',
+  `remark` varchar(500) DEFAULT NULL COMMENT '±∏◊¢',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `param_key` (`param_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='œµÕ≥≈‰÷√–≈œ¢±Ì';
+
+#
+# Data for table "sys_config"
+#
+
+INSERT INTO `sys_config` VALUES (1,'CLOUD_STORAGE_CONFIG_KEY','{\"aliyunAccessKeyId\":\"\",\"aliyunAccessKeySecret\":\"\",\"aliyunBucketName\":\"\",\"aliyunDomain\":\"\",\"aliyunEndPoint\":\"\",\"aliyunPrefix\":\"\",\"qcloudBucketName\":\"\",\"qcloudDomain\":\"\",\"qcloudPrefix\":\"\",\"qcloudSecretId\":\"\",\"qcloudSecretKey\":\"\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuBucketName\":\"ios-app\",\"qiniuDomain\":\"http://7xqbwh.dl1.z0.glb.clouddn.com\",\"qiniuPrefix\":\"upload\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"type\":1}',0,'‘∆¥Ê¥¢≈‰÷√–≈œ¢');
+
+#
+# Structure for table "sys_dept"
+#
+
+DROP TABLE IF EXISTS `sys_dept`;
+CREATE TABLE `sys_dept` (
+  `dept_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '…œº∂≤ø√≈ID£¨“ªº∂≤ø√≈Œ™0',
+  `name` varchar(50) DEFAULT NULL COMMENT '≤ø√≈√˚≥∆',
+  `order_num` int(11) DEFAULT NULL COMMENT '≈≈–Ú',
+  `del_flag` tinyint(4) DEFAULT '0' COMMENT ' «∑Ò…æ≥˝  -1£∫“—…æ≥˝  0£∫’˝≥£',
+  PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='≤ø√≈π‹¿Ì';
+
+#
+# Data for table "sys_dept"
+#
+
+INSERT INTO `sys_dept` VALUES (1,0,'±‡≥Ã∑ÒºØÕ≈',0,0),(2,1,'÷–…Ω∑÷π´Àæ',1,0),(3,1,'…œ∫£∑÷π´Àæ',2,0),(4,3,'ºº ı≤ø',0,0),(5,3,'œ˙ €≤ø',1,0),(6,0,'≤‚ ‘≤ø',5,0);
+
+#
+# Structure for table "sys_dict"
+#
+
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '◊÷µ‰√˚≥∆',
+  `type` varchar(100) NOT NULL COMMENT '◊÷µ‰¿‡–Õ',
+  `code` varchar(100) NOT NULL COMMENT '◊÷µ‰¬Î',
+  `value` varchar(1000) NOT NULL COMMENT '◊÷µ‰÷µ',
+  `order_num` int(11) DEFAULT '0' COMMENT '≈≈–Ú',
+  `remark` varchar(255) DEFAULT NULL COMMENT '±∏◊¢',
+  `del_flag` tinyint(4) DEFAULT '0' COMMENT '…æ≥˝±Íº«  -1£∫“—…æ≥˝  0£∫’˝≥£',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `type` (`type`,`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT=' ˝æ›◊÷µ‰±Ì';
+
+#
+# Data for table "sys_dict"
+#
+
+INSERT INTO `sys_dict` VALUES (1,'–‘±','sex','0','≈Æ',0,NULL,0),(2,'–‘±','sex','1','ƒ–',1,NULL,0),(3,'–‘±','sex','2','Œ¥÷™',3,NULL,0);
+
+#
+# Structure for table "sys_log"
+#
+
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL COMMENT '”√ªß√˚',
+  `operation` varchar(50) DEFAULT NULL COMMENT '”√ªß≤Ÿ◊˜',
+  `method` varchar(200) DEFAULT NULL COMMENT '«Î«Û∑Ω∑®',
+  `params` varchar(5000) DEFAULT NULL COMMENT '«Î«Û≤Œ ˝',
+  `time` bigint(20) NOT NULL COMMENT '÷¥–– ±≥§(∫¡√Î)',
+  `ip` varchar(64) DEFAULT NULL COMMENT 'IPµÿ÷∑',
+  `create_date` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='œµÕ≥»’÷æ';
+
+#
+# Data for table "sys_log"
+#
+
+INSERT INTO `sys_log` VALUES (1,'admin','±£¥Ê≤Àµ•','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":51,\"parentId\":0,\"parentName\":\"“ªº∂≤Àµ•\",\"name\":\"“µŒÒπ‹¿Ì\",\"type\":0,\"icon\":\"fa fa-cog\",\"orderNum\":1}',22,'0:0:0:0:0:0:0:1','2018-08-25 20:03:58'),(2,'admin','–ﬁ∏ƒ≤Àµ•','io.renren.modules.sys.controller.SysMenuController.update()','{\"menuId\":41,\"parentId\":1,\"parentName\":\"œµÕ≥π‹¿Ì\",\"name\":\"…Ë±∏π‹¿Ì\",\"url\":\"modules/sys/machines.html\",\"type\":1,\"icon\":\"fa fa-file-code-o\",\"orderNum\":6}',18,'0:0:0:0:0:0:0:1','2018-08-25 20:04:52'),(3,'admin','±£¥ÊΩ«…´','io.renren.modules.sys.controller.SysRoleController.save()','{\"roleId\":1,\"roleName\":\"∆’Õ®”√ªß\",\"remark\":\"∆’Õ®”√ªß∂‘”¶œ÷ µ÷–µƒ’Ê µ”√ªß\",\"deptId\":5,\"deptName\":\"œ˙ €≤ø\",\"menuIdList\":[51,41,44,46,49],\"deptIdList\":[],\"createTime\":\"Aug 25, 2018 8:41:18 PM\"}',171,'0:0:0:0:0:0:0:1','2018-08-25 20:41:18'),(4,'admin','±£¥Ê”√ªß','io.renren.modules.sys.controller.SysUserController.save()','{\"userId\":2,\"username\":\"≤‚ ‘\",\"password\":\"3647f8423dbf21e25a163a6c32f3866b04725ce575e2d6f1db77be4d651ed8ed\",\"salt\":\"Kl8wSQYXdpDrNeaL2eUT\",\"email\":\"xxx@exceple.com\",\"mobile\":\"123456789\",\"status\":1,\"roleIdList\":[1],\"createTime\":\"Aug 25, 2018 10:46:36 PM\",\"deptId\":4,\"deptName\":\"ºº ı≤ø\"}',179,'0:0:0:0:0:0:0:1','2018-08-25 22:46:36'),(5,'admin','–ﬁ∏ƒΩ«…´','io.renren.modules.sys.controller.SysRoleController.update()','{\"roleId\":1,\"roleName\":\"∆’Õ®”√ªß\",\"remark\":\"∆’Õ®”√ªß∂‘”¶œ÷ µ÷–µƒ’Ê µ”√ªß\",\"deptId\":5,\"deptName\":\"œ˙ €≤ø\",\"menuIdList\":[51,41,42,44,46,47,49,52,53,55],\"deptIdList\":[],\"createTime\":\"Aug 25, 2018 8:41:18 PM\"}',33,'0:0:0:0:0:0:0:1','2018-08-25 22:48:01'),(6,'admin','–ﬁ∏ƒ”√ªß','io.renren.modules.sys.controller.SysUserController.update()','{\"userId\":2,\"username\":\"≤‚ ‘\",\"salt\":\"Kl8wSQYXdpDrNeaL2eUT\",\"email\":\"xxx@exceple.com\",\"mobile\":\"123456789\",\"status\":1,\"roleIdList\":[1],\"createTime\":\"Aug 25, 2018 10:46:36 PM\",\"deptId\":5,\"deptName\":\"œ˙ €≤ø\"}',330,'0:0:0:0:0:0:0:1','2018-08-28 23:28:35'),(7,'admin','–ﬁ∏ƒ”√ªß','io.renren.modules.sys.controller.SysUserController.update()','{\"userId\":2,\"username\":\"≤‚ ‘\",\"salt\":\"Kl8wSQYXdpDrNeaL2eUT\",\"email\":\"xxx@exceple.com\",\"mobile\":\"123456789\",\"status\":1,\"roleIdList\":[1],\"createTime\":\"Aug 25, 2018 10:46:36 PM\",\"deptId\":4,\"deptName\":\"ºº ı≤ø\"}',23778,'0:0:0:0:0:0:0:1','2018-08-28 23:29:38'),(8,'admin','–ﬁ∏ƒ”√ªß','io.renren.modules.sys.controller.SysUserController.update()','{\"userId\":2,\"username\":\"≤‚ ‘\",\"salt\":\"Kl8wSQYXdpDrNeaL2eUT\",\"email\":\"xxx@exceple.com\",\"mobile\":\"123456789\",\"status\":1,\"roleIdList\":[1],\"createTime\":\"Aug 25, 2018 10:46:36 PM\",\"deptId\":2,\"deptName\":\"÷–…Ω∑÷π´Àæ\"}',10568,'0:0:0:0:0:0:0:1','2018-08-28 23:30:03');
+
+#
+# Structure for table "sys_menu"
+#
+
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu` (
+  `menu_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '∏∏≤Àµ•ID£¨“ªº∂≤Àµ•Œ™0',
+  `name` varchar(50) DEFAULT NULL COMMENT '≤Àµ•√˚≥∆',
+  `url` varchar(200) DEFAULT NULL COMMENT '≤Àµ•URL',
+  `perms` varchar(500) DEFAULT NULL COMMENT ' ⁄»®(∂‡∏ˆ”√∂∫∫≈∑÷∏Ù£¨»Á£∫user:list,user:create)',
+  `type` int(11) DEFAULT NULL COMMENT '¿‡–Õ   0£∫ƒø¬º   1£∫≤Àµ•   2£∫∞¥≈•',
+  `icon` varchar(50) DEFAULT NULL COMMENT '≤Àµ•Õº±Í',
+  `order_num` int(11) DEFAULT NULL COMMENT '≈≈–Ú',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COMMENT='≤Àµ•π‹¿Ì';
+
+#
+# Data for table "sys_menu"
+#
+
+INSERT INTO `sys_menu` VALUES (1,0,'œµÕ≥π‹¿Ì',NULL,NULL,0,'fa fa-cog',0),(2,1,'π‹¿Ì‘±π‹¿Ì','modules/sys/user.html',NULL,1,'fa fa-user',1),(3,1,'Ω«…´π‹¿Ì','modules/sys/role.html',NULL,1,'fa fa-user-secret',2),(4,1,'≤Àµ•π‹¿Ì','modules/sys/menu.html',NULL,1,'fa fa-th-list',3),(5,1,'SQLº‡øÿ','druid/sql.html',NULL,1,'fa fa-bug',4),(6,1,'∂® ±»ŒŒÒ','modules/job/schedule.html',NULL,1,'fa fa-tasks',5),(7,6,'≤Èø¥',NULL,'sys:schedule:list,sys:schedule:info',2,NULL,0),(8,6,'–¬‘ˆ',NULL,'sys:schedule:save',2,NULL,0),(9,6,'–ﬁ∏ƒ',NULL,'sys:schedule:update',2,NULL,0),(10,6,'…æ≥˝',NULL,'sys:schedule:delete',2,NULL,0),(11,6,'‘›Õ£',NULL,'sys:schedule:pause',2,NULL,0),(12,6,'ª÷∏¥',NULL,'sys:schedule:resume',2,NULL,0),(13,6,'¡¢º¥÷¥––',NULL,'sys:schedule:run',2,NULL,0),(14,6,'»’÷æ¡–±Ì',NULL,'sys:schedule:log',2,NULL,0),(15,2,'≤Èø¥',NULL,'sys:user:list,sys:user:info',2,NULL,0),(16,2,'–¬‘ˆ',NULL,'sys:user:save,sys:role:select',2,NULL,0),(17,2,'–ﬁ∏ƒ',NULL,'sys:user:update,sys:role:select',2,NULL,0),(18,2,'…æ≥˝',NULL,'sys:user:delete',2,NULL,0),(19,3,'≤Èø¥',NULL,'sys:role:list,sys:role:info',2,NULL,0),(20,3,'–¬‘ˆ',NULL,'sys:role:save,sys:menu:perms',2,NULL,0),(21,3,'–ﬁ∏ƒ',NULL,'sys:role:update,sys:menu:perms',2,NULL,0),(22,3,'…æ≥˝',NULL,'sys:role:delete',2,NULL,0),(23,4,'≤Èø¥',NULL,'sys:menu:list,sys:menu:info',2,NULL,0),(24,4,'–¬‘ˆ',NULL,'sys:menu:save,sys:menu:select',2,NULL,0),(25,4,'–ﬁ∏ƒ',NULL,'sys:menu:update,sys:menu:select',2,NULL,0),(26,4,'…æ≥˝',NULL,'sys:menu:delete',2,NULL,0),(27,1,'≤Œ ˝π‹¿Ì','modules/sys/config.html','sys:config:list,sys:config:info,sys:config:save,sys:config:update,sys:config:delete',1,'fa fa-sun-o',6),(29,1,'œµÕ≥»’÷æ','modules/sys/log.html','sys:log:list',1,'fa fa-file-text-o',7),(30,1,'Œƒº˛…œ¥´','modules/oss/oss.html','sys:oss:all',1,'fa fa-file-image-o',6),(31,1,'≤ø√≈π‹¿Ì','modules/sys/dept.html',NULL,1,'fa fa-file-code-o',1),(32,31,'≤Èø¥',NULL,'sys:dept:list,sys:dept:info',2,NULL,0),(33,31,'–¬‘ˆ',NULL,'sys:dept:save,sys:dept:select',2,NULL,0),(34,31,'–ﬁ∏ƒ',NULL,'sys:dept:update,sys:dept:select',2,NULL,0),(35,31,'…æ≥˝',NULL,'sys:dept:delete',2,NULL,0),(36,1,'◊÷µ‰π‹¿Ì','modules/sys/dict.html',NULL,1,'fa fa-bookmark-o',6),(37,36,'≤Èø¥',NULL,'sys:dict:list,sys:dict:info',2,NULL,6),(38,36,'–¬‘ˆ',NULL,'sys:dict:save',2,NULL,6),(39,36,'–ﬁ∏ƒ',NULL,'sys:dict:update',2,NULL,6),(40,36,'…æ≥˝',NULL,'sys:dict:delete',2,NULL,6),(41,51,'…Ë±∏π‹¿Ì','modules/sys/machines.html',NULL,1,'fa fa-file-code-o',6),(42,41,'≤Èø¥',NULL,'sys:machines:list,sys:machines:info',2,NULL,6),(43,41,'–¬‘ˆ',NULL,'sys:machines:save',2,NULL,6),(44,41,'–ﬁ∏ƒ',NULL,'sys:machines:update',2,NULL,6),(45,41,'…æ≥˝',NULL,'sys:machines:delete',2,NULL,6),(46,51,'≤÷Œªπ‹¿Ì','modules/sys/repos.html',NULL,1,'fa fa-file-code-o',6),(47,46,'≤Èø¥',NULL,'sys:repos:list,sys:repos:info',2,NULL,6),(48,46,'–¬‘ˆ',NULL,'sys:repos:save',2,NULL,6),(49,46,'–ﬁ∏ƒ',NULL,'sys:repos:update',2,NULL,6),(50,46,'…æ≥˝',NULL,'sys:repos:delete',2,NULL,6),(51,0,'“µŒÒπ‹¿Ì',NULL,NULL,0,'fa fa-cog',1),(52,51,'∂©µ•π‹¿Ì','modules/sys/order.html',NULL,1,'fa fa-file-code-o',6),(53,52,'≤Èø¥',NULL,'sys:order:list,sys:order:info',2,NULL,6),(54,52,'–¬‘ˆ',NULL,'sys:order:save',2,NULL,6),(55,52,'–ﬁ∏ƒ',NULL,'sys:order:update',2,NULL,6),(56,52,'…æ≥˝',NULL,'sys:order:delete',2,NULL,6);
+
+#
+# Structure for table "sys_oss"
+#
+
+DROP TABLE IF EXISTS `sys_oss`;
+CREATE TABLE `sys_oss` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `url` varchar(200) DEFAULT NULL COMMENT 'URLµÿ÷∑',
+  `create_date` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Œƒº˛…œ¥´';
+
+#
+# Data for table "sys_oss"
+#
 
 
+#
+# Structure for table "sys_role"
+#
 
-INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test', 'renren', '0 0/30 * * * ?', '0', 'ÊúâÂèÇÊï∞ÊµãËØï', '2016-12-01 23:16:46');
-INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test2', NULL, '0 0/30 * * * ?', '1', 'Êó†ÂèÇÊï∞ÊµãËØï', '2016-12-03 14:55:56');
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(100) DEFAULT NULL COMMENT 'Ω«…´√˚≥∆',
+  `remark` varchar(100) DEFAULT NULL COMMENT '±∏◊¢',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT '≤ø√≈ID',
+  `create_time` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Ω«…´';
+
+#
+# Data for table "sys_role"
+#
+
+INSERT INTO `sys_role` VALUES (1,'∆’Õ®”√ªß','∆’Õ®”√ªß∂‘”¶œ÷ µ÷–µƒ’Ê µ”√ªß',5,'2018-08-25 20:41:18');
+
+#
+# Structure for table "sys_role_dept"
+#
+
+DROP TABLE IF EXISTS `sys_role_dept`;
+CREATE TABLE `sys_role_dept` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) DEFAULT NULL COMMENT 'Ω«…´ID',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT '≤ø√≈ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Ω«…´”Î≤ø√≈∂‘”¶πÿœµ';
+
+#
+# Data for table "sys_role_dept"
+#
 
 
---  quartzËá™Â∏¶Ë°®ÁªìÊûÑ
-CREATE TABLE QRTZ_JOB_DETAILS(
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  JOB_NAME VARCHAR(200) NOT NULL,
-  JOB_GROUP VARCHAR(200) NOT NULL,
-  DESCRIPTION VARCHAR(250) NULL,
-  JOB_CLASS_NAME VARCHAR(250) NOT NULL,
-  IS_DURABLE VARCHAR(1) NOT NULL,
-  IS_NONCONCURRENT VARCHAR(1) NOT NULL,
-  IS_UPDATE_DATA VARCHAR(1) NOT NULL,
-  REQUESTS_RECOVERY VARCHAR(1) NOT NULL,
-  JOB_DATA BLOB NULL,
-  PRIMARY KEY (SCHED_NAME,JOB_NAME,JOB_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "sys_role_menu"
+#
 
-CREATE TABLE QRTZ_TRIGGERS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  JOB_NAME VARCHAR(200) NOT NULL,
-  JOB_GROUP VARCHAR(200) NOT NULL,
-  DESCRIPTION VARCHAR(250) NULL,
-  NEXT_FIRE_TIME BIGINT(13) NULL,
-  PREV_FIRE_TIME BIGINT(13) NULL,
-  PRIORITY INTEGER NULL,
-  TRIGGER_STATE VARCHAR(16) NOT NULL,
-  TRIGGER_TYPE VARCHAR(8) NOT NULL,
-  START_TIME BIGINT(13) NOT NULL,
-  END_TIME BIGINT(13) NULL,
-  CALENDAR_NAME VARCHAR(200) NULL,
-  MISFIRE_INSTR SMALLINT(2) NULL,
-  JOB_DATA BLOB NULL,
-  PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
-  FOREIGN KEY (SCHED_NAME,JOB_NAME,JOB_GROUP)
-  REFERENCES QRTZ_JOB_DETAILS(SCHED_NAME,JOB_NAME,JOB_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) DEFAULT NULL COMMENT 'Ω«…´ID',
+  `menu_id` bigint(20) DEFAULT NULL COMMENT '≤Àµ•ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='Ω«…´”Î≤Àµ•∂‘”¶πÿœµ';
 
-CREATE TABLE QRTZ_SIMPLE_TRIGGERS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  REPEAT_COUNT BIGINT(7) NOT NULL,
-  REPEAT_INTERVAL BIGINT(12) NOT NULL,
-  TIMES_TRIGGERED BIGINT(10) NOT NULL,
-  PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
-  FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
-  REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Data for table "sys_role_menu"
+#
 
-CREATE TABLE QRTZ_CRON_TRIGGERS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  CRON_EXPRESSION VARCHAR(120) NOT NULL,
-  TIME_ZONE_ID VARCHAR(80),
-  PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
-  FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
-  REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `sys_role_menu` VALUES (6,1,51),(7,1,41),(8,1,42),(9,1,44),(10,1,46),(11,1,47),(12,1,49),(13,1,52),(14,1,53),(15,1,55);
 
-CREATE TABLE QRTZ_SIMPROP_TRIGGERS
-(
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  STR_PROP_1 VARCHAR(512) NULL,
-  STR_PROP_2 VARCHAR(512) NULL,
-  STR_PROP_3 VARCHAR(512) NULL,
-  INT_PROP_1 INT NULL,
-  INT_PROP_2 INT NULL,
-  LONG_PROP_1 BIGINT NULL,
-  LONG_PROP_2 BIGINT NULL,
-  DEC_PROP_1 NUMERIC(13,4) NULL,
-  DEC_PROP_2 NUMERIC(13,4) NULL,
-  BOOL_PROP_1 VARCHAR(1) NULL,
-  BOOL_PROP_2 VARCHAR(1) NULL,
-  PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
-  FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
-  REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "sys_user"
+#
 
-CREATE TABLE QRTZ_BLOB_TRIGGERS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  BLOB_DATA BLOB NULL,
-  PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
-  INDEX (SCHED_NAME,TRIGGER_NAME, TRIGGER_GROUP),
-  FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
-  REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL COMMENT '”√ªß√˚',
+  `password` varchar(100) DEFAULT NULL COMMENT '√‹¬Î',
+  `salt` varchar(20) DEFAULT NULL COMMENT '—Œ',
+  `email` varchar(100) DEFAULT NULL COMMENT '” œ‰',
+  `mobile` varchar(100) DEFAULT NULL COMMENT ' ÷ª˙∫≈',
+  `status` tinyint(4) DEFAULT NULL COMMENT '◊¥Ã¨  0£∫Ω˚”√   1£∫’˝≥£',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT '≤ø√≈ID',
+  `create_time` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='œµÕ≥”√ªß';
 
-CREATE TABLE QRTZ_CALENDARS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  CALENDAR_NAME VARCHAR(200) NOT NULL,
-  CALENDAR BLOB NOT NULL,
-  PRIMARY KEY (SCHED_NAME,CALENDAR_NAME))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Data for table "sys_user"
+#
 
-CREATE TABLE QRTZ_PAUSED_TRIGGER_GRPS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  PRIMARY KEY (SCHED_NAME,TRIGGER_GROUP))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `sys_user` VALUES (1,'admin','e1153123d7d180ceeb820d577ff119876678732a68eef4e6ffc0b1f06a01f91b','YzcmCZNvbXocrsz9dm8e','root@renren.io','13612345678',1,1,'2016-11-11 11:11:11'),(2,'≤‚ ‘','3647f8423dbf21e25a163a6c32f3866b04725ce575e2d6f1db77be4d651ed8ed','Kl8wSQYXdpDrNeaL2eUT','xxx@exceple.com','123456789',1,2,'2018-08-25 22:46:36');
 
-CREATE TABLE QRTZ_FIRED_TRIGGERS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  ENTRY_ID VARCHAR(95) NOT NULL,
-  TRIGGER_NAME VARCHAR(200) NOT NULL,
-  TRIGGER_GROUP VARCHAR(200) NOT NULL,
-  INSTANCE_NAME VARCHAR(200) NOT NULL,
-  FIRED_TIME BIGINT(13) NOT NULL,
-  SCHED_TIME BIGINT(13) NOT NULL,
-  PRIORITY INTEGER NOT NULL,
-  STATE VARCHAR(16) NOT NULL,
-  JOB_NAME VARCHAR(200) NULL,
-  JOB_GROUP VARCHAR(200) NULL,
-  IS_NONCONCURRENT VARCHAR(1) NULL,
-  REQUESTS_RECOVERY VARCHAR(1) NULL,
-  PRIMARY KEY (SCHED_NAME,ENTRY_ID))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "sys_user_role"
+#
 
-CREATE TABLE QRTZ_SCHEDULER_STATE (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  INSTANCE_NAME VARCHAR(200) NOT NULL,
-  LAST_CHECKIN_TIME BIGINT(13) NOT NULL,
-  CHECKIN_INTERVAL BIGINT(13) NOT NULL,
-  PRIMARY KEY (SCHED_NAME,INSTANCE_NAME))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL COMMENT '”√ªßID',
+  `role_id` bigint(20) DEFAULT NULL COMMENT 'Ω«…´ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='”√ªß”ÎΩ«…´∂‘”¶πÿœµ';
 
-CREATE TABLE QRTZ_LOCKS (
-  SCHED_NAME VARCHAR(120) NOT NULL,
-  LOCK_NAME VARCHAR(40) NOT NULL,
-  PRIMARY KEY (SCHED_NAME,LOCK_NAME))
-  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Data for table "sys_user_role"
+#
 
-CREATE INDEX IDX_QRTZ_J_REQ_RECOVERY ON QRTZ_JOB_DETAILS(SCHED_NAME,REQUESTS_RECOVERY);
-CREATE INDEX IDX_QRTZ_J_GRP ON QRTZ_JOB_DETAILS(SCHED_NAME,JOB_GROUP);
+INSERT INTO `sys_user_role` VALUES (4,2,1);
 
-CREATE INDEX IDX_QRTZ_T_J ON QRTZ_TRIGGERS(SCHED_NAME,JOB_NAME,JOB_GROUP);
-CREATE INDEX IDX_QRTZ_T_JG ON QRTZ_TRIGGERS(SCHED_NAME,JOB_GROUP);
-CREATE INDEX IDX_QRTZ_T_C ON QRTZ_TRIGGERS(SCHED_NAME,CALENDAR_NAME);
-CREATE INDEX IDX_QRTZ_T_G ON QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_GROUP);
-CREATE INDEX IDX_QRTZ_T_STATE ON QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_STATE);
-CREATE INDEX IDX_QRTZ_T_N_STATE ON QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP,TRIGGER_STATE);
-CREATE INDEX IDX_QRTZ_T_N_G_STATE ON QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_GROUP,TRIGGER_STATE);
-CREATE INDEX IDX_QRTZ_T_NEXT_FIRE_TIME ON QRTZ_TRIGGERS(SCHED_NAME,NEXT_FIRE_TIME);
-CREATE INDEX IDX_QRTZ_T_NFT_ST ON QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_STATE,NEXT_FIRE_TIME);
-CREATE INDEX IDX_QRTZ_T_NFT_MISFIRE ON QRTZ_TRIGGERS(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME);
-CREATE INDEX IDX_QRTZ_T_NFT_ST_MISFIRE ON QRTZ_TRIGGERS(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_STATE);
-CREATE INDEX IDX_QRTZ_T_NFT_ST_MISFIRE_GRP ON QRTZ_TRIGGERS(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_GROUP,TRIGGER_STATE);
+#
+# Structure for table "tb_order"
+#
 
-CREATE INDEX IDX_QRTZ_FT_TRIG_INST_NAME ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,INSTANCE_NAME);
-CREATE INDEX IDX_QRTZ_FT_INST_JOB_REQ_RCVRY ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,INSTANCE_NAME,REQUESTS_RECOVERY);
-CREATE INDEX IDX_QRTZ_FT_J_G ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,JOB_NAME,JOB_GROUP);
-CREATE INDEX IDX_QRTZ_FT_JG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,JOB_GROUP);
-CREATE INDEX IDX_QRTZ_FT_T_G ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP);
-CREATE INDEX IDX_QRTZ_FT_TG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,TRIGGER_GROUP);
+DROP TABLE IF EXISTS `tb_order`;
+CREATE TABLE `tb_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '÷˜º¸',
+  `machine_id` bigint(20) NOT NULL COMMENT '…Ë±∏idÕ‚º¸',
+  `create_time` datetime DEFAULT NULL COMMENT '¥¥Ω® ±º‰',
+  `last_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '∏¸–¬ ±º‰',
+  `status` int(11) DEFAULT '0' COMMENT '◊¥Ã¨ ƒ¨»œ0 Œ¥πÈªπ£¨ 1 “—πÈªπ∂©µ•πÿ±’',
+  `u_id` bigint(20) NOT NULL COMMENT '”√ªßIDÕ‚º¸',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='∂©µ•π‹¿Ì';
+
+#
+# Data for table "tb_order"
+#
+
+
+#
+# Structure for table "tb_repos"
+#
+
+DROP TABLE IF EXISTS `tb_repos`;
+CREATE TABLE `tb_repos` (
+  `repos_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '÷˜º¸',
+  `name` varchar(50) DEFAULT NULL COMMENT '≤÷Œª√˚≥∆£¨»Á£∫A1, B22µ»',
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`repos_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='≤÷Œªπ‹¿Ì';
+
+#
+# Data for table "tb_repos"
+#
+
+
+#
+# Structure for table "tb_machines"
+#
+
+DROP TABLE IF EXISTS `tb_machines`;
+CREATE TABLE `tb_machines` (
+  `machines_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '÷˜º¸',
+  `machines_name` varchar(50) DEFAULT NULL COMMENT '…Ë±∏√˚≥∆',
+  `machines_type` varchar(500) DEFAULT NULL COMMENT '…Ë±∏±‡∫≈',
+  `machines_status` int(11) DEFAULT '0' COMMENT '…Ë±∏◊¥Ã¨ ƒ¨»œ0’˝≥££¨1¥˝Œ¨–ﬁ£¨2“—±®∑œ',
+  `machines_category` varchar(50) DEFAULT NULL COMMENT '…Ë±∏∑÷¿‡ ƒ¨»œ¥Ú”°ª˙',
+  `repo_id` bigint(20) NOT NULL COMMENT '…Ë±∏À˘‘⁄≤÷Œª',
+  PRIMARY KEY (`machines_id`),
+  KEY `mr` (`repo_id`),
+  CONSTRAINT `mr` FOREIGN KEY (`repo_id`) REFERENCES `tb_repos` (`repos_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='…Ë±∏π‹¿Ì';
+
+#
+# Data for table "tb_machines"
+#
+
