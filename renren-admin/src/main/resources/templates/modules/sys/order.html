@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>订单管理</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <!--查询按钮-->
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.machineName" @keyup.enter="query" placeholder="设备名称">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+
+			<#if shiro.hasPermission("sys:order:list")>
+            <a class="btn btn-primary" href="/renren-admin/sys/order/excels"><i class="fa fa-file-excel-o"></i>&nbsp;导出数据到Excel</a>
+			</#if>
+			<#if shiro.hasPermission("sys:order:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+														                    <div class="form-group">
+                        <div class="col-sm-2 control-label">设备id外键</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="order.machineId" placeholder="设备id外键"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">创建时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="order.createTime" placeholder="创建时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">更新时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="order.lastTime" placeholder="更新时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">状态</div>
+                        <div class="col-sm-10">
+                            <select class="form-control" v-model="order.status">
+                                <option value="0">未归还</option>
+                                <option value="1">已归还</option>
+                            </select>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">用户ID外键</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="order.uId" placeholder="用户ID外键"/>
+                        </div>
+                    </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/order.js?_${.now?long}"></script>
+</body>
+</html>

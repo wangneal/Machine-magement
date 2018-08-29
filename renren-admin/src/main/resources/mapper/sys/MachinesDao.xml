@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.MachinesDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.MachinesEntity" id="machinesMap">
+        <result property="machinesId" column="machines_id"/>
+        <result property="machinesName" column="machines_name"/>
+        <result property="machinesType" column="machines_type"/>
+        <result property="machinesStatus" column="machines_status"/>
+        <result property="machinesCategory" column="machines_category"/>
+        <result property="repoId" column="repo_id"/>
+    </resultMap>
+
+    <select id="findByRepoId" resultType="io.renren.modules.sys.entity.MachinesEntity">
+        select * from tb_machines where repo_id in <foreach collection="ids" item="ids" open="(" separator="," close=")">
+        #{ids}
+    </foreach>
+    </select>
+    <select id="findAll" resultType="io.renren.modules.sys.entity.MachinesEntity">
+        select * from tb_machines;
+    </select>
+    <select id="findByMachinesName" resultType="io.renren.modules.sys.entity.MachinesEntity">
+        select * from tb_machines where machines_name like CONCAT(CONCAT('%', #{machinesName}), '%')
+    </select>
+</mapper>

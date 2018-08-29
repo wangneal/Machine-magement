@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.OrderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.OrderEntity" id="orderMap">
+        <result property="id" column="id"/>
+        <result property="machineId" column="machine_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="status" column="status"/>
+        <result property="uId" column="u_id"/>
+    </resultMap>
+    
+    <select id="findAll" resultType="OrderEntity">
+        select * from tb_order;
+    </select>
+
+</mapper>

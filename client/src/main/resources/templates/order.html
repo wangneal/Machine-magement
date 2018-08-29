@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>设备借用</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link th:href="@{/css/bootstrap/3.3.6/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap/3.3.6/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery/2.0.0/jquery.min.js}"></script>
+    <style>
+        body{
+            background-color: #bbd3e9;
+        }
+
+
+    </style>
+</head>
+<body>
+<div th:if="${machine}">
+
+<form class="form-horizontal" role="form" action="/store" method="post">
+    <div class="container">
+        <div class="row text-center" style="padding: 20px 0">
+            <h1 class="text-info"><em>设备借还</em></h1>
+        </div>
+    <div class="row form-group">
+        <div class="col-lg-5 control-label">设备名称</div>
+        <div class="col-lg-6 col-md-6">
+            <label>
+                <input type="text" class="form-control" th:name="machinesName" th:value="${machine.machinesName}" readonly="readonly"/>
+            </label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-lg-5 control-label">设备编号</div>
+        <div class="col-lg-6 col-md-6">
+            <label>
+                <input type="text" class="form-control"  readonly="readonly" th:name="machinesType" th:value="${machine.machinesType}"/>
+            </label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-lg-5 control-label">设备分类</div>
+        <div class="col-lg-6 col-md-6">
+            <label>
+                <input type="text" class="form-control"  readonly="readonly" th:name="machinesCategory" th:value="${machine.machinesCategory}"/>
+            </label>
+        </div>
+    </div>
+
+    <input type="hidden" th:value="${machine.machinesId}" th:name="machineId">
+    <div class="row form-group">
+        <div class="col-lg-5 control-label"></div>
+        <div class="col-lg-6 col-md-6">
+        <input type="submit" class="btn btn-primary"   value="借用"/>
+        </div>
+    </div>
+    </div>
+</form>
+</div>
+<div th:unless="${machine}" class="text-center">
+    <div th:if="${msg}">
+        <p class="alert alert-info">[[${msg}]]</p>
+    </div>
+    <span class="text-info">感谢使用我们的系统。您已经成功操作，请点击<input type="button" name="close" value="此处" onclick="window.close();" />关闭页面</span>
+</div>
+</body>
+
+</html>
