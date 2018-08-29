@@ -33,7 +33,7 @@ public class QRCodeCreate {
     private static final String LOGO_PATH = "e:\\2wima\\logo\\";
     @Autowired
     private  MachineRepository machineRepository;
-    //TODO 这个方法有一个bug，生成的二维码中间的文字过小
+
     @Test
     public  void create() throws Exception {
         List<Machine> machineList = machineRepository.findAll();
