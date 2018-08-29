@@ -94,8 +94,12 @@ renren-security
 - Eclipse、IDEA运行AdminApplication.java，则可启动项目【renren-admin】
 - renren-admin访问路径：http://localhost:8080/renren-admin
 - swagger文档路径：http://localhost:8080/renren-admin/swagger/index.html
+- 账号密码：admin/admin  
+
+<br>
+- Eclipse、IDEA运行Application.java，则可启动项目【client】
 - client 访问路径：http://localhost:8088
-- 账号密码：admin/admin   通用
+- 账号密码：admin/admin
 - 用户扫描二维码就可以进入借还界面进行操作。管理员在后台可以查看所有未删除的订单信息及状态。
 
 <br>
